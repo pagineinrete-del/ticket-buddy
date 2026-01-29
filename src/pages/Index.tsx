@@ -1,12 +1,72 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useState } from 'react';
+import { Ticket } from 'lucide-react';
+import { CreateTicketDialog } from '@/components/tickets/CreateTicketDialog';
+import { TicketTable } from '@/components/tickets/TicketTable';
+import { TicketFilters } from '@/components/tickets/TicketFilters';
+import { useTickets } from '@/hooks/useTickets';
+import { StatusFilter } from '@/types/ticket';
 
 const Index = () => {
+  const [searchQuery, setSearchQuery] = useState('');
+  const [statusFilter, setStatusFilter] = useState<StatusFilter>('attivi');
+  
+  const { data: tickets = [], isLoading } = useTickets(statusFilter, searchQuery);
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
+    <div className="min-h-screen bg-background">
+      {/* Header */}
+      <header className="border-b bg-card">
+        <div className="container mx-auto px-4 py-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="p-2 rounded-lg bg-primary">
+                <Ticket className="h-5 w-5 text-primary-foreground" />
+              </div>
+              <div>
+                <h1 className="text-xl font-bold text-foreground">Gestione Ticket</h1>
+                <p className="text-sm text-muted-foreground">Sistema di assistenza</p>
+              </div>
+            </div>
+            <CreateTicketDialog />
+          </div>
+        </div>
+      </header>
+
+      {/* Main Content */}
+      <main className="container mx-auto px-4 py-6">
+        <div className="space-y-6">
+          {/* Stats */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div className="bg-card border rounded-lg p-4">
+              <p className="text-sm text-muted-foreground">Ticket Attivi</p>
+              <p className="text-2xl font-bold text-foreground">
+                {tickets.filter(t => t.stato_ticket !== 'chiuso').length}
+              </p>
+            </div>
+            <div className="bg-card border rounded-lg p-4">
+              <p className="text-sm text-muted-foreground">In Lavorazione</p>
+              <p className="text-2xl font-bold text-status-working">
+                {tickets.filter(t => t.stato_ticket === 'in_lavorazione').length}
+              </p>
+            </div>
+            <div className="bg-card border rounded-lg p-4">
+              <p className="text-sm text-muted-foreground">Totale Visualizzati</p>
+              <p className="text-2xl font-bold text-foreground">{tickets.length}</p>
+            </div>
+          </div>
+
+          {/* Filters */}
+          <TicketFilters
+            searchQuery={searchQuery}
+            onSearchChange={setSearchQuery}
+            statusFilter={statusFilter}
+            onStatusFilterChange={setStatusFilter}
+          />
+
+          {/* Table */}
+          <TicketTable tickets={tickets} isLoading={isLoading} />
+        </div>
+      </main>
     </div>
   );
 };
