@@ -60,19 +60,25 @@ export function TicketTable({ tickets, isLoading }: TicketTableProps) {
       <Table>
         <TableHeader>
           <TableRow className="hover:bg-transparent">
-            <TableHead className="w-[120px]">ID</TableHead>
+            <TableHead className="w-[180px]">Ticket</TableHead>
             <TableHead className="w-[140px]">Telefono</TableHead>
             <TableHead>Motivo</TableHead>
             <TableHead className="w-[140px]">Stato</TableHead>
-            <TableHead className="w-[160px]">Data Apertura</TableHead>
             <TableHead className="w-[160px]">Data Chiusura</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           {tickets.map((ticket) => (
             <TableRow key={ticket.id}>
-              <TableCell className="font-mono text-xs text-muted-foreground">
-                {ticket.id.slice(0, 8)}...
+              <TableCell>
+                <div className="flex flex-col gap-0.5">
+                  <span className="font-mono text-xs font-medium text-foreground">
+                    #{ticket.id.slice(0, 8)}
+                  </span>
+                  <span className="text-xs text-muted-foreground">
+                    aperto il {formatDate(ticket.data_apertura)}
+                  </span>
+                </div>
               </TableCell>
               <TableCell className="font-medium">{ticket.telefono}</TableCell>
               <TableCell className="max-w-[300px] truncate" title={ticket.motivo_ticket}>
@@ -100,9 +106,6 @@ export function TicketTable({ tickets, isLoading }: TicketTableProps) {
                     </SelectItem>
                   </SelectContent>
                 </Select>
-              </TableCell>
-              <TableCell className="text-sm text-muted-foreground">
-                {formatDate(ticket.data_apertura)}
               </TableCell>
               <TableCell className="text-sm text-muted-foreground">
                 {ticket.data_chiusura ? formatDate(ticket.data_chiusura) : '—'}
