@@ -2,6 +2,7 @@ export type TicketStatus = 'aperto' | 'in_lavorazione' | 'chiuso';
 
 export interface Ticket {
   id: string;
+  numero_ticket: string | null;
   motivo_ticket: string;
   telefono: string;
   stato_ticket: TicketStatus;
@@ -14,6 +15,7 @@ export interface Ticket {
 export interface CreateTicketData {
   motivo_ticket: string;
   telefono: string;
+  numero_ticket?: string;
   chi_aperto?: string;
   referente_assistenza?: string;
 }

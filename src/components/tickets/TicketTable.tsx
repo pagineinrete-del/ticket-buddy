@@ -75,7 +75,7 @@ export function TicketTable({ tickets, isLoading }: TicketTableProps) {
               <TableCell>
                 <div className="flex flex-col gap-0.5">
                   <span className="font-mono text-xs font-medium text-foreground">
-                    #{ticket.id.slice(0, 8)}
+                    {ticket.numero_ticket || `#${ticket.id.slice(0, 8)}`}
                   </span>
                   <span className="text-xs text-muted-foreground">
                     aperto il {formatDate(ticket.data_apertura)}
