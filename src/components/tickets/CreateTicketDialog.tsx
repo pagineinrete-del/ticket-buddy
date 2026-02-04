@@ -16,6 +16,7 @@ import { useToast } from '@/hooks/use-toast';
 
 export function CreateTicketDialog() {
   const [open, setOpen] = useState(false);
+  const [numeroTicket, setNumeroTicket] = useState('');
   const [telefono, setTelefono] = useState('');
   const [motivoTicket, setMotivoTicket] = useState('');
   const [chiAperto, setChiAperto] = useState('');
@@ -40,6 +41,7 @@ export function CreateTicketDialog() {
       await createTicket.mutateAsync({
         telefono: telefono.trim(),
         motivo_ticket: motivoTicket.trim(),
+        numero_ticket: numeroTicket.trim() || undefined,
         chi_aperto: chiAperto.trim() || undefined,
         referente_assistenza: referenteAssistenza.trim() || undefined,
       });
@@ -50,6 +52,7 @@ export function CreateTicketDialog() {
       });
       
       setOpen(false);
+      setNumeroTicket('');
       setTelefono('');
       setMotivoTicket('');
       setChiAperto('');
@@ -76,6 +79,15 @@ export function CreateTicketDialog() {
           <DialogTitle>Crea nuovo ticket</DialogTitle>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-4 mt-4">
+          <div className="space-y-2">
+            <Label htmlFor="numeroTicket">Numero Ticket</Label>
+            <Input
+              id="numeroTicket"
+              placeholder="es. TKT-001"
+              value={numeroTicket}
+              onChange={(e) => setNumeroTicket(e.target.value)}
+            />
+          </div>
           <div className="space-y-2">
             <Label htmlFor="telefono">Telefono *</Label>
             <Input

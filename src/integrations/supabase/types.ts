@@ -21,6 +21,7 @@ export type Database = {
           data_chiusura: string | null
           id: string
           motivo_ticket: string
+          numero_ticket: string | null
           referente_assistenza: string | null
           stato_ticket: string
           telefono: string
@@ -31,6 +32,7 @@ export type Database = {
           data_chiusura?: string | null
           id?: string
           motivo_ticket: string
+          numero_ticket?: string | null
           referente_assistenza?: string | null
           stato_ticket?: string
           telefono: string
@@ -41,6 +43,7 @@ export type Database = {
           data_chiusura?: string | null
           id?: string
           motivo_ticket?: string
+          numero_ticket?: string | null
           referente_assistenza?: string | null
           stato_ticket?: string
           telefono?: string
