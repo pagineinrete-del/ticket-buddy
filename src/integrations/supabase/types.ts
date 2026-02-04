@@ -16,26 +16,32 @@ export type Database = {
     Tables: {
       tickets: {
         Row: {
+          chi_aperto: string | null
           data_apertura: string | null
           data_chiusura: string | null
           id: string
           motivo_ticket: string
+          referente_assistenza: string | null
           stato_ticket: string
           telefono: string
         }
         Insert: {
+          chi_aperto?: string | null
           data_apertura?: string | null
           data_chiusura?: string | null
           id?: string
           motivo_ticket: string
+          referente_assistenza?: string | null
           stato_ticket?: string
           telefono: string
         }
         Update: {
+          chi_aperto?: string | null
           data_apertura?: string | null
           data_chiusura?: string | null
           id?: string
           motivo_ticket?: string
+          referente_assistenza?: string | null
           stato_ticket?: string
           telefono?: string
         }

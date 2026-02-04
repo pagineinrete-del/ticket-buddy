@@ -18,6 +18,8 @@ export function CreateTicketDialog() {
   const [open, setOpen] = useState(false);
   const [telefono, setTelefono] = useState('');
   const [motivoTicket, setMotivoTicket] = useState('');
+  const [chiAperto, setChiAperto] = useState('');
+  const [referenteAssistenza, setReferenteAssistenza] = useState('');
   
   const createTicket = useCreateTicket();
   const { toast } = useToast();
@@ -38,6 +40,8 @@ export function CreateTicketDialog() {
       await createTicket.mutateAsync({
         telefono: telefono.trim(),
         motivo_ticket: motivoTicket.trim(),
+        chi_aperto: chiAperto.trim() || undefined,
+        referente_assistenza: referenteAssistenza.trim() || undefined,
       });
       
       toast({
@@ -48,6 +52,8 @@ export function CreateTicketDialog() {
       setOpen(false);
       setTelefono('');
       setMotivoTicket('');
+      setChiAperto('');
+      setReferenteAssistenza('');
     } catch (error) {
       toast({
         title: 'Errore',
@@ -90,6 +96,24 @@ export function CreateTicketDialog() {
               onChange={(e) => setMotivoTicket(e.target.value)}
               rows={4}
               required
+            />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="chiAperto">Chi ha aperto</Label>
+            <Input
+              id="chiAperto"
+              placeholder="Nome di chi apre il ticket"
+              value={chiAperto}
+              onChange={(e) => setChiAperto(e.target.value)}
+            />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="referente">Referente assistenza</Label>
+            <Input
+              id="referente"
+              placeholder="Nome del referente"
+              value={referenteAssistenza}
+              onChange={(e) => setReferenteAssistenza(e.target.value)}
             />
           </div>
           <div className="flex justify-end gap-3 pt-4">

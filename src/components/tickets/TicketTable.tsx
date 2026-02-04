@@ -63,6 +63,8 @@ export function TicketTable({ tickets, isLoading }: TicketTableProps) {
             <TableHead className="w-[180px]">Ticket</TableHead>
             <TableHead className="w-[140px]">Telefono</TableHead>
             <TableHead>Motivo</TableHead>
+            <TableHead className="w-[120px]">Chi ha aperto</TableHead>
+            <TableHead className="w-[140px]">Referente</TableHead>
             <TableHead className="w-[140px]">Stato</TableHead>
             <TableHead className="w-[160px]">Data Chiusura</TableHead>
           </TableRow>
@@ -81,8 +83,14 @@ export function TicketTable({ tickets, isLoading }: TicketTableProps) {
                 </div>
               </TableCell>
               <TableCell className="font-medium">{ticket.telefono}</TableCell>
-              <TableCell className="max-w-[300px] truncate" title={ticket.motivo_ticket}>
+              <TableCell className="max-w-[200px] truncate" title={ticket.motivo_ticket}>
                 {ticket.motivo_ticket}
+              </TableCell>
+              <TableCell className="text-sm">
+                {ticket.chi_aperto || '—'}
+              </TableCell>
+              <TableCell className="text-sm">
+                {ticket.referente_assistenza || '—'}
               </TableCell>
               <TableCell>
                 <Select
