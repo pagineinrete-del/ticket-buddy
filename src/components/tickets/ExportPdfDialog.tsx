@@ -202,23 +202,24 @@ export function ExportPdfDialog() {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline" size="sm" className="gap-2">
+        <Button variant="outline" size="sm" className="gap-1.5 sm:gap-2 px-2 sm:px-3 h-8 sm:h-9 text-xs sm:text-sm">
           <FileDown className="h-4 w-4" />
-          Esporta PDF
+          <span className="hidden sm:inline">Esporta PDF</span>
+          <span className="sm:hidden">PDF</span>
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className="sm:max-w-md mx-4">
         <DialogHeader>
-          <DialogTitle className="flex items-center gap-2">
-            <Calendar className="h-5 w-5" />
+          <DialogTitle className="flex items-center gap-2 text-base sm:text-lg">
+            <Calendar className="h-4 w-4 sm:h-5 sm:w-5" />
             Esporta Report PDF
           </DialogTitle>
         </DialogHeader>
-        <div className="space-y-4 mt-4">
-          <div className="space-y-2">
-            <Label>Periodo</Label>
+        <div className="space-y-3 sm:space-y-4 mt-3 sm:mt-4">
+          <div className="space-y-1.5 sm:space-y-2">
+            <Label className="text-sm">Periodo</Label>
             <Select value={dateRange} onValueChange={(v) => setDateRange(v as DateRange)}>
-              <SelectTrigger>
+              <SelectTrigger className="h-9 sm:h-10">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -233,7 +234,7 @@ export function ExportPdfDialog() {
               </SelectContent>
             </Select>
           </div>
-          <Button onClick={exportToPdf} className="w-full gap-2" disabled={isExporting}>
+          <Button onClick={exportToPdf} className="w-full gap-2 h-9 sm:h-10" disabled={isExporting}>
             {isExporting ? (
               <>
                 <span className="animate-spin rounded-full h-4 w-4 border-b-2 border-primary-foreground"></span>
