@@ -1,16 +1,33 @@
 import { useState } from 'react';
-import { Ticket } from 'lucide-react';
+import { Ticket, LogOut } from 'lucide-react';
 import { CreateTicketDialog } from '@/components/tickets/CreateTicketDialog';
 import { TicketTable } from '@/components/tickets/TicketTable';
 import { TicketFilters } from '@/components/tickets/TicketFilters';
+import { ExportPdfDialog } from '@/components/tickets/ExportPdfDialog';
 import { useTickets } from '@/hooks/useTickets';
+import { useAuth } from '@/hooks/useAuth';
 import { StatusFilter } from '@/types/ticket';
+import { Button } from '@/components/ui/button';
+import { useToast } from '@/hooks/use-toast';
 
 const Index = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<StatusFilter>('attivi');
   
   const { data: tickets = [], isLoading } = useTickets(statusFilter, searchQuery);
+  const { user, signOut } = useAuth();
+  const { toast } = useToast();
+
+  const handleSignOut = async () => {
+    const { error } = await signOut();
+    if (error) {
+      toast({
+        title: 'Errore',
+        description: 'Impossibile effettuare il logout',
+        variant: 'destructive',
+      });
+    }
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -24,10 +41,16 @@ const Index = () => {
               </div>
               <div>
                 <h1 className="text-xl font-bold text-foreground">Gestione Ticket</h1>
-                <p className="text-sm text-muted-foreground">Sistema di assistenza</p>
+                <p className="text-sm text-muted-foreground">{user?.email}</p>
               </div>
             </div>
-            <CreateTicketDialog />
+            <div className="flex items-center gap-2">
+              <ExportPdfDialog />
+              <CreateTicketDialog />
+              <Button variant="ghost" size="icon" onClick={handleSignOut} title="Esci">
+                <LogOut className="h-4 w-4" />
+              </Button>
+            </div>
           </div>
         </div>
       </header>
