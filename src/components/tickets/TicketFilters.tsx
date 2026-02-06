@@ -26,17 +26,17 @@ export function TicketFilters({
   onStatusFilterChange,
 }: TicketFiltersProps) {
   return (
-    <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
-      <div className="relative w-full sm:w-80">
+    <div className="flex flex-col gap-3 sm:gap-4">
+      <div className="relative w-full">
         <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
         <Input
-          placeholder="Cerca per telefono, motivo o ID..."
+          placeholder="Cerca..."
           value={searchQuery}
           onChange={(e) => onSearchChange(e.target.value)}
-          className="pl-10"
+          className="pl-10 h-9 sm:h-10"
         />
       </div>
-      <div className="flex gap-1 p-1 bg-muted rounded-lg">
+      <div className="flex gap-1 p-1 bg-muted rounded-lg overflow-x-auto">
         {filterOptions.map((option) => (
           <Button
             key={option.value}
@@ -44,7 +44,7 @@ export function TicketFilters({
             size="sm"
             onClick={() => onStatusFilterChange(option.value)}
             className={cn(
-              'px-3 py-1.5 h-auto text-sm font-medium rounded-md transition-all',
+              'px-2 sm:px-3 py-1 sm:py-1.5 h-auto text-xs sm:text-sm font-medium rounded-md transition-all whitespace-nowrap flex-shrink-0',
               statusFilter === option.value
                 ? 'bg-background text-foreground shadow-sm'
                 : 'text-muted-foreground hover:text-foreground'
