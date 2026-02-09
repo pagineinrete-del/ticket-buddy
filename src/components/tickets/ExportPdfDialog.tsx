@@ -128,6 +128,7 @@ export function ExportPdfDialog() {
         ticket.numero_ticket || `#${ticket.id.slice(0, 8)}`,
         ticket.telefono,
         ticket.motivo_ticket.length > 40 ? ticket.motivo_ticket.slice(0, 40) + '...' : ticket.motivo_ticket,
+        ticket.numero_pm || '-',
         ticket.chi_aperto || '-',
         ticket.referente_assistenza || '-',
         statusLabels[ticket.stato_ticket] || ticket.stato_ticket,
@@ -137,7 +138,7 @@ export function ExportPdfDialog() {
 
       autoTable(doc, {
         startY: 58,
-        head: [['Ticket', 'Telefono', 'Motivo', 'Chi ha aperto', 'Referente', 'Stato', 'Apertura', 'Chiusura']],
+        head: [['Ticket', 'Telefono', 'Motivo', 'N° PM', 'Chi ha aperto', 'Referente', 'Stato', 'Apertura', 'Chiusura']],
         body: tableData,
         styles: {
           fontSize: 8,

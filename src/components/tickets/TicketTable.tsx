@@ -1,6 +1,6 @@
 import { format } from 'date-fns';
 import { it } from 'date-fns/locale';
-import { Phone, Calendar, User, Users } from 'lucide-react';
+import { Phone, Calendar, User, Users, Hash } from 'lucide-react';
 import { Ticket, TicketStatus } from '@/types/ticket';
 import { StatusBadge } from './StatusBadge';
 import {
@@ -113,6 +113,12 @@ export function TicketTable({ tickets, isLoading }: TicketTableProps) {
                   {ticket.chi_aperto}
                 </span>
               )}
+              {ticket.numero_pm && (
+                <span className="flex items-center gap-1">
+                  <Hash className="h-3 w-3" />
+                  PM: {ticket.numero_pm}
+                </span>
+              )}
               {ticket.referente_assistenza && (
                 <span className="flex items-center gap-1">
                   <Users className="h-3 w-3" />
@@ -142,6 +148,7 @@ export function TicketTable({ tickets, isLoading }: TicketTableProps) {
             <TableHead className="w-[140px]">Telefono</TableHead>
             <TableHead>Motivo</TableHead>
             <TableHead className="w-[120px]">Chi ha aperto</TableHead>
+            <TableHead className="w-[100px]">N° PM</TableHead>
             <TableHead className="w-[140px]">Referente</TableHead>
             <TableHead className="w-[140px]">Stato</TableHead>
             <TableHead className="w-[160px]">Data Chiusura</TableHead>
@@ -166,6 +173,9 @@ export function TicketTable({ tickets, isLoading }: TicketTableProps) {
               </TableCell>
               <TableCell className="text-sm">
                 {ticket.chi_aperto || '—'}
+              </TableCell>
+              <TableCell className="text-sm">
+                {ticket.numero_pm || '—'}
               </TableCell>
               <TableCell className="text-sm">
                 {ticket.referente_assistenza || '—'}

@@ -10,6 +10,7 @@ export interface Ticket {
   data_chiusura: string | null;
   chi_aperto: string | null;
   referente_assistenza: string | null;
+  numero_pm: string | null;
 }
 
 export interface CreateTicketData {
@@ -18,6 +19,7 @@ export interface CreateTicketData {
   numero_ticket?: string;
   chi_aperto?: string;
   referente_assistenza?: string;
+  numero_pm?: string;
 }
 
 export type StatusFilter = TicketStatus | 'tutti' | 'attivi';
