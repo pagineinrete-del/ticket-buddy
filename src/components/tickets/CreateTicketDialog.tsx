@@ -21,6 +21,7 @@ export function CreateTicketDialog() {
   const [motivoTicket, setMotivoTicket] = useState('');
   const [chiAperto, setChiAperto] = useState('');
   const [referenteAssistenza, setReferenteAssistenza] = useState('');
+  const [numeroPm, setNumeroPm] = useState('');
   
   const createTicket = useCreateTicket();
   const { toast } = useToast();
@@ -44,6 +45,7 @@ export function CreateTicketDialog() {
         numero_ticket: numeroTicket.trim() || undefined,
         chi_aperto: chiAperto.trim() || undefined,
         referente_assistenza: referenteAssistenza.trim() || undefined,
+        numero_pm: numeroPm.trim() || undefined,
       });
       
       toast({
@@ -57,6 +59,7 @@ export function CreateTicketDialog() {
       setMotivoTicket('');
       setChiAperto('');
       setReferenteAssistenza('');
+      setNumeroPm('');
     } catch (error) {
       toast({
         title: 'Errore',
@@ -111,6 +114,16 @@ export function CreateTicketDialog() {
               onChange={(e) => setMotivoTicket(e.target.value)}
               rows={3}
               required
+            />
+          </div>
+          <div className="space-y-1.5 sm:space-y-2">
+            <Label htmlFor="numeroPm" className="text-sm">Numero PM</Label>
+            <Input
+              id="numeroPm"
+              placeholder="es. PM-001"
+              value={numeroPm}
+              onChange={(e) => setNumeroPm(e.target.value)}
+              className="h-9 sm:h-10"
             />
           </div>
           <div className="grid grid-cols-2 gap-3">
