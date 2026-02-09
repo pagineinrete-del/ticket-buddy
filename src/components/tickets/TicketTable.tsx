@@ -65,15 +65,16 @@ export function TicketTable({ tickets, isLoading }: TicketTableProps) {
   // Mobile card view
   if (isMobile) {
     return (
-      <div className="space-y-3">
+      <div className="space-y-2">
         {tickets.map((ticket) => (
-          <div key={ticket.id} className="bg-card border rounded-lg p-3 space-y-2.5">
-            <div className="flex items-start justify-between gap-2">
+          <div key={ticket.id} className="bg-card border rounded-xl p-3 space-y-2">
+            {/* Top row: ticket ID + date | status */}
+            <div className="flex items-center justify-between gap-2">
               <div className="min-w-0 flex-1">
-                <p className="font-mono text-xs font-medium text-foreground truncate">
+                <p className="font-mono text-sm font-semibold text-foreground truncate">
                   {ticket.numero_ticket || `#${ticket.id.slice(0, 8)}`}
                 </p>
-                <p className="text-xs text-muted-foreground">
+                <p className="text-[11px] text-muted-foreground mt-0.5">
                   {formatDateShort(ticket.data_apertura)}
                 </p>
               </div>
@@ -81,7 +82,7 @@ export function TicketTable({ tickets, isLoading }: TicketTableProps) {
                 value={ticket.stato_ticket}
                 onValueChange={(value: TicketStatus) => handleStatusChange(ticket.id, value)}
               >
-                <SelectTrigger className="w-auto h-7 border-0 bg-transparent p-0 focus:ring-0">
+                <SelectTrigger className="w-auto h-7 border-0 bg-transparent p-0 focus:ring-0 [&>svg]:hidden">
                   <SelectValue>
                     <StatusBadge status={ticket.stato_ticket} />
                   </SelectValue>
@@ -100,34 +101,36 @@ export function TicketTable({ tickets, isLoading }: TicketTableProps) {
               </Select>
             </div>
             
-            <p className="text-sm text-foreground line-clamp-2">{ticket.motivo_ticket}</p>
+            {/* Motivo */}
+            <p className="text-[13px] text-foreground leading-snug line-clamp-2">{ticket.motivo_ticket}</p>
             
-            <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-muted-foreground">
-              <span className="flex items-center gap-1">
-                <Phone className="h-3 w-3" />
-                {ticket.telefono}
+            {/* Meta info grid */}
+            <div className="grid grid-cols-2 gap-x-3 gap-y-1.5 text-[11px] text-muted-foreground pt-0.5 border-t border-border/50">
+              <span className="flex items-center gap-1.5 pt-1.5">
+                <Phone className="h-3 w-3 flex-shrink-0 text-primary/60" />
+                <span className="truncate font-medium text-foreground/80">{ticket.telefono}</span>
               </span>
-              {ticket.chi_aperto && (
-                <span className="flex items-center gap-1">
-                  <User className="h-3 w-3" />
-                  {ticket.chi_aperto}
+              {ticket.numero_pm ? (
+                <span className="flex items-center gap-1.5 pt-1.5">
+                  <Hash className="h-3 w-3 flex-shrink-0 text-primary/60" />
+                  <span className="truncate">PM: {ticket.numero_pm}</span>
                 </span>
-              )}
-              {ticket.numero_pm && (
-                <span className="flex items-center gap-1">
-                  <Hash className="h-3 w-3" />
-                  PM: {ticket.numero_pm}
+              ) : <span />}
+              {ticket.chi_aperto && (
+                <span className="flex items-center gap-1.5">
+                  <User className="h-3 w-3 flex-shrink-0 text-primary/60" />
+                  <span className="truncate">{ticket.chi_aperto}</span>
                 </span>
               )}
               {ticket.referente_assistenza && (
-                <span className="flex items-center gap-1">
-                  <Users className="h-3 w-3" />
-                  {ticket.referente_assistenza}
+                <span className="flex items-center gap-1.5">
+                  <Users className="h-3 w-3 flex-shrink-0 text-primary/60" />
+                  <span className="truncate">{ticket.referente_assistenza}</span>
                 </span>
               )}
               {ticket.data_chiusura && (
-                <span className="flex items-center gap-1">
-                  <Calendar className="h-3 w-3" />
+                <span className="flex items-center gap-1.5 col-span-2">
+                  <Calendar className="h-3 w-3 flex-shrink-0 text-primary/60" />
                   Chiuso: {formatDateShort(ticket.data_chiusura)}
                 </span>
               )}
